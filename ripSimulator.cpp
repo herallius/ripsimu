@@ -9,6 +9,7 @@ struct Router
 	string address[MAXSIZE];
 	string nextHop[MAXSIZE];
 	int distance[MAXSIZE];
+	int numberOfEntry;
 };
 
 
@@ -22,6 +23,7 @@ int main()
 
 void initializeRouters(Router r[])
 {
+	numberOfEntry = 2;
 	r[0].address[0] = "1.0.0.0";
 	r[0].address[1] = "2.0.0.0";
 	r[1].address[0] = "2.0.0.0";
@@ -45,4 +47,21 @@ void initializeRouters(Router r[])
 			r[i].distance[j] = 0;
 		}
 	}	
+}
+
+void R1Advertise(Router r1, Router r2)
+{
+	updateTable(r1, r2);
+}
+
+void updateTable(Router r1, Router r2)
+{
+	for(int i=0; i< r1.numberOfEntry; i++)
+	{
+		for(int j=0; j < r2.numberOfEntry; j++)
+		{
+			if(r1.address[i] == r2.address[j])
+				break;
+		}
+	}
 }
